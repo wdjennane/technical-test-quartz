@@ -26,10 +26,11 @@ const Home: NextPage<Data> = () => {
     formState: { errors },
   } = useForm<Inputs>({});
   const [data, setData] = useState<Data | null>();
-  const [errorData, setErrorData] = useState<ErrorData>();
+  const [errorData, setErrorData] = useState<ErrorData | null>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     setData(null); // To reset the state before each fetch
+    setErrorData(null); // To reset the state before each fetch
     await fetchData(data.websiteUrl);
   };
 

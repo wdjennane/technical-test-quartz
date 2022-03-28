@@ -37,7 +37,7 @@ export default async function getUrlTitle(
     });
   } catch (err: Error | any) {
     res.status(404).json({
-      error: err.message,
+      error: "Url not found",
       status: res.statusCode,
     });
   }
