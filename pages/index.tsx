@@ -27,7 +27,6 @@ const Home: NextPage<Data> = () => {
   } = useForm<Inputs>({});
   const [data, setData] = useState<Data | null>();
   const [errorData, setErrorData] = useState<ErrorData>();
-  const regex = /\b(https?:\/\/.*?\.[a-z]{2,4}\/[^\s]*\b)/g;
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     setData(null); // To reset the state before each fetch

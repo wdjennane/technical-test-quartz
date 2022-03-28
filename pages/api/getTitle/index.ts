@@ -11,7 +11,8 @@ type ErrorPayload = {
 };
 
 const parseTitle = (body: string) => {
-  let title = body.match(/<title>([^<]*)<\/title>/);
+  console.log(body);
+  let title = body.match(/<title.*?>(.*?)<\/title>/);
   if (!title || typeof title[1] !== "string")
     throw new Error("Unable to parse");
   return title[1];
@@ -19,7 +20,7 @@ const parseTitle = (body: string) => {
 
 export default async function getUrlTitle(
   req: NextApiRequest,
-  res: NextApiResponse<Data | ErrorPayload>
+  res: NextApiResponse
 ) {
   const {
     query: { url },
@@ -36,7 +37,7 @@ export default async function getUrlTitle(
     });
   } catch (err: Error | any) {
     res.status(404).json({
-      error: "Url not found",
+      error: err.message,
       status: res.statusCode,
     });
   }
