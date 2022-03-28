@@ -1,10 +1,15 @@
-version: "3.3"
+version: "3"
 
 services:
   technical-test-quartz:
-    container_name: technical-test-quartz
-    ports:
-      - 3000:3000
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: technical-test-quartz
+    restart: always
+    volumes:
+      - ./:/app
+      - /app/node_modules
+      - /app/.next
+    ports:
+      - 3000:3000

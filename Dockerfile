@@ -1,15 +1,27 @@
-# Naively Simple Node Dockerfile
+# Dockerfile
 
+# Use node alpine as it's a small node image
 FROM node:14.17-alpine
 
-RUN mkdir -p /home/app/ && chown -R node:node /home/app
-WORKDIR /home/app
-COPY --chown=node:node . .
+# Create the directory on the node image
+# where our Next.js app will live
+RUN mkdir -p /app
 
-USER node
+# Set /app as the working directory
+WORKDIR /app
 
-RUN yarn install --frozen-lockfile
-RUN yarn build
+# Copy package.json and package-lock.json
+# to the /app working directory
+COPY package*.json /app
 
+# Install dependencies in /app
+RUN yarn install
+
+# Copy the rest of our Next.js folder into /app
+COPY . /app
+
+# Ensure port 3000 is accessible to our system
 EXPOSE 3000
-CMD [ "yarn", "start" ]
+
+# Run yarn dev, as we would via the command line
+CMD ["yarn", "dev"]
